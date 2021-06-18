@@ -58,6 +58,8 @@ public class login_form extends javax.swing.JFrame {
         desainForm = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtFieldUser.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

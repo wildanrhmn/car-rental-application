@@ -21,6 +21,7 @@ public class menu_utama extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         btnMenuInvisibility();
         pointerChanges();
+        jDesktopPane1.setVisible(false);
     }
 
     /**
@@ -56,20 +57,86 @@ public class menu_utama extends javax.swing.JFrame {
         aboutUs = new javax.swing.JLabel();
         goToHome = new javax.swing.JLabel();
         btnDatabase = new javax.swing.JButton();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         menuUtamaDesign = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Main Menu");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnRent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRentActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnRent, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, 190, 240));
+
+        aboutUs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aboutUsMouseClicked(evt);
+            }
+        });
         getContentPane().add(aboutUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, 60, 80));
+
+        goToHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                goToHomeMouseClicked(evt);
+            }
+        });
         getContentPane().add(goToHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 70));
+
+        btnDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatabaseActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnDatabase, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 190, 240));
+
+        jDesktopPane1.setOpaque(false);
+        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 680, 540));
 
         menuUtamaDesign.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_utama .png"))); // NOI18N
         getContentPane().add(menuUtamaDesign, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void aboutUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutUsMouseClicked
+        // TODO add your handling code here:
+        about_us kelompok = new about_us();
+        kelompok.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_aboutUsMouseClicked
+
+    private void btnRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentActionPerformed
+        // TODO add your handling code here:
+        jDesktopPane1.setVisible(true);
+        jDesktopPane1.setOpaque(true);
+        btnRent.setEnabled(false);
+        btnDatabase.setEnabled(false);
+        form_pinjam form = new form_pinjam();
+        form.setVisible(true);
+        form.setMaximizable(true);
+        form.setOpaque(true);
+        jDesktopPane1.add(form);
+    }//GEN-LAST:event_btnRentActionPerformed
+
+    private void goToHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goToHomeMouseClicked
+        // TODO add your handling code here:
+        jDesktopPane1.setVisible(false);
+        jDesktopPane1.setOpaque(false);
+        btnDatabase.setEnabled(true);
+        btnRent.setEnabled(true);
+        
+    }//GEN-LAST:event_goToHomeMouseClicked
+
+    private void btnDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatabaseActionPerformed
+        // TODO add your handling code here:
+        menu_crud crud = new menu_crud();
+        crud.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDatabaseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,6 +178,7 @@ public class menu_utama extends javax.swing.JFrame {
     private javax.swing.JButton btnDatabase;
     private javax.swing.JButton btnRent;
     private javax.swing.JLabel goToHome;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel menuUtamaDesign;
     // End of variables declaration//GEN-END:variables
 }

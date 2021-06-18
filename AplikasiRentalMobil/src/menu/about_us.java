@@ -35,7 +35,14 @@ public class about_us extends javax.swing.JFrame {
         designForm = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("About Us");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelBackMouseClicked(evt);
+            }
+        });
         getContentPane().add(labelBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 50, 30));
 
         designForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/about_us.png"))); // NOI18N
@@ -43,6 +50,14 @@ public class about_us extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void labelBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBackMouseClicked
+        // TODO add your handling code here:
+        
+        menu_utama utama = new menu_utama();
+        utama.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_labelBackMouseClicked
 
     /**
      * @param args the command line arguments
