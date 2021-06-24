@@ -5,20 +5,40 @@
  */
 package menu;
 
+import Database.KoneksiDatabase;
+import java.sql.Connection;
 import javax.swing.JFrame;
+import koneksi.koneksi;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ASUS
- */
+
 public class form_pinjam extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form form_pinjam
-     */
-    public form_pinjam() {
-        initComponents();
+    
+    ResultSet rs;
+    static String nama;
+    static String nik;
+    static String alamat;
+    static String tlp;
+    static String email;
+    String status1;
+    
+    public final Connection conn = new koneksi().connect();
+    private form_transaksi form_transaksi;
+    
+    
+    private void initForm(){
         
+        
+        form_transaksi = new form_transaksi();
+    }
+   
+    public form_pinjam() {
+        
+        initComponents();
+        initForm();
+
         
     }
 
@@ -41,12 +61,12 @@ public class form_pinjam extends javax.swing.JInternalFrame {
         NIKTxtField = new javax.swing.JTextField();
         namaTxtField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        alamatTextField = new javax.swing.JTextArea();
+        alamatTxtField = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
-        tlpTextField = new javax.swing.JTextField();
+        tlpTxtField = new javax.swing.JTextField();
         emailTxtField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_next = new javax.swing.JButton();
+        btn_clear = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -79,18 +99,27 @@ public class form_pinjam extends javax.swing.JInternalFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Email                 :");
 
-        alamatTextField.setColumns(20);
-        alamatTextField.setRows(5);
-        jScrollPane1.setViewportView(alamatTextField);
-
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Documents\\GitHub\\Kelompok-2_Aplikasi-Rental-Mobil\\AplikasiRentalMobil\\Design form\\Icon\\person.png")); // NOI18N
-
-        jButton1.setText("Next");
-
-        jButton2.setText("Clear");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        NIKTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                NIKTxtFieldActionPerformed(evt);
+            }
+        });
+
+        alamatTxtField.setColumns(20);
+        alamatTxtField.setRows(5);
+        jScrollPane1.setViewportView(alamatTxtField);
+
+        btn_next.setText("Next");
+        btn_next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_nextActionPerformed(evt);
+            }
+        });
+
+        btn_clear.setText("Clear");
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
             }
         });
 
@@ -114,7 +143,7 @@ public class form_pinjam extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(NIKTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                         .addComponent(namaTxtField)
-                        .addComponent(tlpTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(tlpTxtField, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(emailTxtField))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
@@ -122,9 +151,9 @@ public class form_pinjam extends javax.swing.JInternalFrame {
                 .addGap(38, 38, 38))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(117, 117, 117)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_next, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(117, 117, 117))
         );
         jPanel2Layout.setVerticalGroup(
@@ -146,15 +175,15 @@ public class form_pinjam extends javax.swing.JInternalFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(tlpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tlpTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
                     .addComponent(emailTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_next, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
@@ -200,23 +229,52 @@ public class form_pinjam extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
         // TODO add your handling code here:
         namaTxtField.setText("");
         NIKTxtField.setText("");
-        alamatTextField.setText("");
-        tlpTextField.setText("");
+        alamatTxtField.setText("");
+        tlpTxtField.setText("");
         emailTxtField.setText("");
         namaTxtField.requestFocus();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_clearActionPerformed
 
+    private void btn_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nextActionPerformed
+       if (NIKTxtField.getText().isEmpty()|| alamatTxtField.getText().isEmpty() || tlpTxtField.getText().isEmpty()||emailTxtField.getText().isEmpty()){ 
+               JOptionPane.showMessageDialog(this,"Data Isian ada yang kosong");
+       }else{
+           String nama = namaTxtField.getText();
+           String nik = NIKTxtField.getText();
+           String alamat = alamatTxtField.getText();
+           String tlp = tlpTxtField.getText();
+           String email = emailTxtField.getText();
+           
+           
+           form_transaksi fm = new form_transaksi(nama , nik, alamat, tlp, email);
+           fm.setVisible(true);
+           form_transaksi.show();
+           this.dispose();
+           
+ 
+    
+       }
+    }//GEN-LAST:event_btn_nextActionPerformed
+
+    private void NIKTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIKTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NIKTxtFieldActionPerformed
+
+  
+      
+  
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField NIKTxtField;
-    private javax.swing.JTextArea alamatTextField;
+    private javax.swing.JTextArea alamatTxtField;
+    private javax.swing.JButton btn_clear;
+    private javax.swing.JButton btn_next;
     private javax.swing.JTextField emailTxtField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -228,6 +286,6 @@ public class form_pinjam extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField namaTxtField;
-    private javax.swing.JTextField tlpTextField;
+    private javax.swing.JTextField tlpTxtField;
     // End of variables declaration//GEN-END:variables
 }

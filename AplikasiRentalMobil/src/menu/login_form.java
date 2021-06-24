@@ -7,10 +7,15 @@ package menu;
 
 
 import java.awt.Cursor;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import koneksi.koneksi;
                     
 
 public class login_form extends javax.swing.JFrame {
-
+private final Connection conn = new koneksi().connect();
    
     
     
@@ -39,8 +44,8 @@ public class login_form extends javax.swing.JFrame {
     
     private void txtFieldInvisibility(){
         //Login_form excuse
-        txtFieldUser.setBackground(new java.awt.Color(0,0,0,1));
-        txtFieldPass.setBackground(new java.awt.Color(0,0,0,1));
+        txtUsername.setBackground(new java.awt.Color(0,0,0,1));
+        txtPassword.setBackground(new java.awt.Color(0,0,0,1));
     }
     
     
@@ -52,8 +57,8 @@ public class login_form extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtFieldUser = new javax.swing.JTextField();
-        txtFieldPass = new javax.swing.JPasswordField();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         desainForm = new javax.swing.JLabel();
 
@@ -62,17 +67,22 @@ public class login_form extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtFieldUser.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtFieldUser.setForeground(new java.awt.Color(255, 255, 255));
-        txtFieldUser.setBorder(null);
-        getContentPane().add(txtFieldUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 240, 30));
+        txtUsername.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtUsername.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsername.setBorder(null);
+        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 240, 30));
 
-        txtFieldPass.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFieldPass.setForeground(new java.awt.Color(255, 255, 255));
-        txtFieldPass.setBorder(null);
-        getContentPane().add(txtFieldPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 240, 20));
+        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtPassword.setBorder(null);
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 240, 20));
 
         btnLogin.setPreferredSize(new java.awt.Dimension(73, 30));
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
+            }
+        });
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -87,10 +97,35 @@ public class login_form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-        
-        System.out.println("HAII");
+         try {
+            java.sql.Statement stat = conn.createStatement();
+            ResultSet result = stat.executeQuery("select * from login where "
+                + "username='" + txtUsername.getText() + "'");
+            if (result.next()) {
+                if (txtPassword.getText().equals(result.getString("password"))) {
+                    menu_utama mn = new menu_utama();
+                    mn.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    mn.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Password Salah");
+                    txtPassword.setText("");
+                    txtUsername.requestFocus();
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "User Tidak Ditemukan");
+                txtUsername.setText("");
+                txtPassword.setText("");
+                txtUsername.requestFocus();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Gagal");
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -130,7 +165,7 @@ public class login_form extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel desainForm;
-    private javax.swing.JPasswordField txtFieldPass;
-    private javax.swing.JTextField txtFieldUser;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

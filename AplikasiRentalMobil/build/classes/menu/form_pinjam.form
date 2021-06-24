@@ -105,7 +105,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="NIKTxtField" pref="224" max="32767" attributes="0"/>
                               <Component id="namaTxtField" max="32767" attributes="0"/>
-                              <Component id="tlpTextField" alignment="1" max="32767" attributes="0"/>
+                              <Component id="tlpTxtField" alignment="1" max="32767" attributes="0"/>
                               <Component id="emailTxtField" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" min="-2" pref="259" max="-2" attributes="0"/>
@@ -116,9 +116,9 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="95" max="-2" attributes="0"/>
+                      <Component id="btn_clear" min="-2" pref="95" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="95" max="-2" attributes="0"/>
+                      <Component id="btn_next" min="-2" pref="95" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -145,7 +145,7 @@
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tlpTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tlpTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -154,8 +154,8 @@
                       </Group>
                       <EmptySpace pref="46" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btn_next" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btn_clear" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
@@ -219,6 +219,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="NIKTxtField">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NIKTxtFieldActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="namaTxtField">
             </Component>
@@ -229,7 +232,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="alamatTextField">
+                <Component class="javax.swing.JTextArea" name="alamatTxtField">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
@@ -238,27 +241,25 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel8">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\ASUS\Documents\GitHub\Kelompok-2_Aplikasi-Rental-Mobil\AplikasiRentalMobil\Design form\Icon\person.png"/>
-                </Property>
-              </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tlpTextField">
+            <Component class="javax.swing.JTextField" name="tlpTxtField">
             </Component>
             <Component class="javax.swing.JTextField" name="emailTxtField">
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btn_next">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Next"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_nextActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btn_clear">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clearActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

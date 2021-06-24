@@ -7,16 +7,41 @@ package menu;
 
 import java.awt.Cursor;
 import javax.swing.JOptionPane;
-
+import Database.KoneksiDatabase;
+import Database.ResultSetTable;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import koneksi.koneksi;
 /**
  *
  * @author ASUS
  */
 public class form_transaksi extends javax.swing.JFrame {
 
-    /**
-     * Creates new form form_transaksi
-     */
+    public final Connection conn = new koneksi().connect();
+    private DefaultTableModel tabmode;
+    
+    
+    
+    public form_transaksi(String nama, String nik, String alamat, String tlp, String email) {
+
+
+        initComponents();
+        lblNama.setText(nama);
+        nikTextField.setText(nik);
+        alamatTxtField.setText(alamat);
+        telpTxtField.setText(tlp);
+        emailTxtField.setText(email);
+        loadMobil();
+        loadTabel();
+
+
+    }
+    
+   
     public form_transaksi() {
         initComponents();
         //dont change
@@ -63,8 +88,6 @@ public class form_transaksi extends javax.swing.JFrame {
         noPolisiBox = new javax.swing.JComboBox<>();
         lblStatus = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         txtFieldHari = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -87,8 +110,6 @@ public class form_transaksi extends javax.swing.JFrame {
             }
         });
         getContentPane().add(goToHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 100, 120));
-
-        background.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Documents\\GitHub\\Kelompok-2_Aplikasi-Rental-Mobil\\AplikasiRentalMobil\\Design form\\Design kiri.png")); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(153, 0, 153));
@@ -357,6 +378,10 @@ public class form_transaksi extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnHitungHarga)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -371,18 +396,10 @@ public class form_transaksi extends javax.swing.JFrame {
                             .addComponent(jLabel16)
                             .addComponent(jLabel17))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(txtFieldHari, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel18))
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnHitungHarga)
-                        .addGap(56, 56, 56)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                        .addComponent(txtFieldHari, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel18)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,11 +407,8 @@ public class form_transaksi extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3)
+                        .addGap(34, 34, 34))
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -451,7 +465,7 @@ public class form_transaksi extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                        .addGap(0, 53, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -537,8 +551,6 @@ public class form_transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel goToHome;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -576,4 +588,12 @@ public class form_transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel telpTxtField;
     private javax.swing.JTextField txtFieldHari;
     // End of variables declaration//GEN-END:variables
+
+    private void loadMobil() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void loadTabel() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
