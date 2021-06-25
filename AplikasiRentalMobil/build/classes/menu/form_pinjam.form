@@ -219,17 +219,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="NIKTxtField">
-              <Properties>
-                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NIKTxtFieldActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="namaTxtField">
-              <Properties>
-                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-              </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <AuxValues>
@@ -242,20 +236,13 @@
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="alamatTxtFieldKeyPressed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel8">
             </Component>
             <Component class="javax.swing.JTextField" name="tlpTxtField">
-              <Properties>
-                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="emailTxtField">
             </Component>

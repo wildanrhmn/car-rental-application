@@ -5,24 +5,41 @@
  */
 package menu;
 
+import Database.KoneksiDatabase;
+import java.sql.Connection;
 import javax.swing.JFrame;
+import koneksi.koneksi;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-
-
+import javax.swing.table.DefaultTableModel;
 
 
 public class form_pinjam extends javax.swing.JInternalFrame {
+    
+    ResultSet rs;
+    static String nama;
+    static String nik;
+    static String alamat;
+    static String tlp;
+    static String email;
+    String status1;
+    
+    public final Connection conn = new koneksi().connect();
+    private form_transaksi form_transaksi;
+    
+    
+    private void initForm(){
+        
+        
+        form_transaksi = new form_transaksi();
+    }
    
-    
-   String nama,nik,alamat,tlp, email;
-   
-    
-    
- 
     public form_pinjam() {
         
         initComponents();
-      
+        initForm();
+
+        
     }
 
     /**
@@ -82,26 +99,15 @@ public class form_pinjam extends javax.swing.JInternalFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Email                 :");
 
-        NIKTxtField.setRequestFocusEnabled(false);
         NIKTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NIKTxtFieldActionPerformed(evt);
             }
         });
 
-        namaTxtField.setRequestFocusEnabled(false);
-
         alamatTxtField.setColumns(20);
         alamatTxtField.setRows(5);
-        alamatTxtField.setRequestFocusEnabled(false);
-        alamatTxtField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                alamatTxtFieldKeyPressed(evt);
-            }
-        });
         jScrollPane1.setViewportView(alamatTxtField);
-
-        tlpTxtField.setRequestFocusEnabled(false);
 
         btn_next.setText("Next");
         btn_next.addActionListener(new java.awt.event.ActionListener() {
@@ -234,50 +240,35 @@ public class form_pinjam extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_clearActionPerformed
 
     private void btn_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nextActionPerformed
+       if (NIKTxtField.getText().isEmpty()|| alamatTxtField.getText().isEmpty() || tlpTxtField.getText().isEmpty()||emailTxtField.getText().isEmpty()){ 
+               JOptionPane.showMessageDialog(this,"Data Isian ada yang kosong");
+       }else{
+           String nama = namaTxtField.getText();
+           String nik = NIKTxtField.getText();
+           String alamat = alamatTxtField.getText();
+           String tlp = tlpTxtField.getText();
+           String email = emailTxtField.getText();
+           
+           
+           form_transaksi fm = new form_transaksi(nama , nik, alamat, tlp, email);
+           fm.setVisible(true);
+           form_transaksi.show();
+           this.dispose();
+           
+ 
     
-       if (namaTxtField.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Nama Tidak Boleh Kosong");
-        } else if (NIKTxtField.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"NIK Tidak Boleh Kosong");
-        } else if (alamatTxtField.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Alamat Tidak Boleh Kosong");
-        } else if (tlpTxtField.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"No.telepon Tidak Boleh Kosong");
-        } else if(emailTxtField.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Email Tidak Boleh Kosong");
-        } else{
-        try{
-            nama = namaTxtField.getText();
-            nik = NIKTxtField.getText();
-            alamat = alamatTxtField.getText();
-            tlp = tlpTxtField.getText();
-            email = emailTxtField.getText();
-            
-            form_transaksi fm = new form_transaksi(nama, nik, alamat, tlp, email);
-            fm.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            fm.setVisible(true);
-            menu_utama utama = new menu_utama();
-            utama.dispose();
-            this.dispose();
-                    
-        }catch(Exception e){
-           JOptionPane.showMessageDialog(null, e);
-        }
-        }
+       }
     }//GEN-LAST:event_btn_nextActionPerformed
 
     private void NIKTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIKTxtFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NIKTxtFieldActionPerformed
 
-    private void alamatTxtFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alamatTxtFieldKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_TAB){
-            tlpTxtField.requestFocus();
-        }
-    }//GEN-LAST:event_alamatTxtFieldKeyPressed
-
+  
+      
+  
     
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField NIKTxtField;
     private javax.swing.JTextArea alamatTxtField;

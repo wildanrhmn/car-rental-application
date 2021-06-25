@@ -75,11 +75,6 @@ private final Connection conn = new koneksi().connect();
         txtPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.setBorder(null);
-        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPasswordKeyPressed(evt);
-            }
-        });
         getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 240, 20));
 
         btnLogin.setPreferredSize(new java.awt.Dimension(73, 30));
@@ -95,7 +90,7 @@ private final Connection conn = new koneksi().connect();
         });
         getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 394, 220, 50));
 
-        desainForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar_menu/login_menu.png"))); // NOI18N
+        desainForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/login_menu.png"))); // NOI18N
         getContentPane().add(desainForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -109,7 +104,7 @@ private final Connection conn = new koneksi().connect();
             if (result.next()) {
                 if (txtPassword.getText().equals(result.getString("password"))) {
                     menu_utama mn = new menu_utama();
-                    mn.setLocationRelativeTo(null);
+                    mn.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     mn.setVisible(true);
                     this.dispose();
                 } else {
@@ -131,37 +126,6 @@ private final Connection conn = new koneksi().connect();
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLoginMouseClicked
-
-    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-             try {
-            java.sql.Statement stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("select * from login where "
-                + "username='" + txtUsername.getText() + "'");
-            if (result.next()) {
-                if (txtPassword.getText().equals(result.getString("password"))) {
-                    menu_utama mn = new menu_utama();
-                    mn.setLocationRelativeTo(null);
-                    mn.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Password Salah");
-                    txtPassword.setText("");
-                    txtUsername.requestFocus();
-                }
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "User Tidak Ditemukan");
-                txtUsername.setText("");
-                txtPassword.setText("");
-                txtUsername.requestFocus();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Gagal");
-        }
-            
-        }
-    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments

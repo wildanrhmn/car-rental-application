@@ -14,14 +14,9 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-
 public class menu_crud extends javax.swing.JFrame {
-    
-    
-    
-    
 public final Connection conn = new koneksi().connect();
-private DefaultTableModel tabmode;
+    private DefaultTableModel tabmode;
     
     
     private void aktif(){
@@ -45,28 +40,26 @@ private DefaultTableModel tabmode;
             tabmode.setValueAt(nomor + ".",a, 0);
         }
     }
-    
-   
 
-//    public void LebarKolom(){
-//        TableColumn kolom;
-//        mb_tb.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-//        kolom = mb_tb.getColumnModel().getColumn(0);
-//        kolom.setPreferredWidth(40);
-//        kolom = mb_tb.getColumnModel().getColumn(1);
-//        kolom.setWidth(150);
-//        kolom = mb_tb.getColumnModel().getColumn(2);
-//        kolom.setWidth(150);
-//        kolom = mb_tb.getColumnModel().getColumn(3);
-//        kolom.setWidth(150);
-//        kolom = mb_tb.getColumnModel().getColumn(4);
-//        kolom.setWidth(150);
-//        kolom = mb_tb.getColumnModel().getColumn(5);
-//        kolom.setWidth(150); 
-//        kolom = mb_tb.getColumnModel().getColumn(6);
-//        kolom.setWidth(150); 
-//      
-//    }
+    public void LebarKolom(){
+        TableColumn kolom;
+        mb_tb.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        kolom = mb_tb.getColumnModel().getColumn(0);
+        kolom.setPreferredWidth(40);
+        kolom = mb_tb.getColumnModel().getColumn(1);
+        kolom.setWidth(150);
+        kolom = mb_tb.getColumnModel().getColumn(2);
+        kolom.setWidth(150);
+        kolom = mb_tb.getColumnModel().getColumn(3);
+        kolom.setWidth(150);
+        kolom = mb_tb.getColumnModel().getColumn(4);
+        kolom.setWidth(150);
+        kolom = mb_tb.getColumnModel().getColumn(5);
+        kolom.setWidth(150); 
+        kolom = mb_tb.getColumnModel().getColumn(6);
+        kolom.setWidth(150); 
+      
+    }
     public void dataTable(){
         Object [] Baris = {"ID","Merek","Tipe","Tahun","No.Polisi","Harga", "Status"};
         tabmode = new DefaultTableModel (null, Baris);
@@ -85,7 +78,7 @@ private DefaultTableModel tabmode;
                 String [] data = {"", mrk, tp, thn, nopls,hrg,stts};
                 tabmode.addRow(data);
                 noId();
-                
+                LebarKolom();
             }
             
         }catch (Exception e){
@@ -100,7 +93,7 @@ private DefaultTableModel tabmode;
         mb_tb.setModel(tabmode);
         int brs = mb_tb.getRowCount();
         for(int i = 0; 1<brs; i++){
-            
+            tabmode.removeRow(1);
     } 
         try {
              java.sql.Statement stat = conn.createStatement();
@@ -128,11 +121,10 @@ private DefaultTableModel tabmode;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         hideLabel_forButtonClick();
         dataTable();
-//        LebarKolom();
+        LebarKolom();
         aktif();
         kosong();
         txtFieldMerek.requestFocus();
-        
     }
 
     /**
@@ -168,7 +160,6 @@ private DefaultTableModel tabmode;
         boxThnProduksi = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -186,29 +177,14 @@ private DefaultTableModel tabmode;
 
         txtFieldMerek.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         txtFieldMerek.setBorder(null);
-        txtFieldMerek.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFieldMerekKeyTyped(evt);
-            }
-        });
         getContentPane().add(txtFieldMerek, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, 240, 30));
 
         txtFieldTipe.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         txtFieldTipe.setBorder(null);
-        txtFieldTipe.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFieldTipeKeyTyped(evt);
-            }
-        });
         getContentPane().add(txtFieldTipe, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 200, 240, 30));
 
         txtFieldNoPolisi.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         txtFieldNoPolisi.setBorder(null);
-        txtFieldNoPolisi.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFieldNoPolisiKeyTyped(evt);
-            }
-        });
         getContentPane().add(txtFieldNoPolisi, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 250, 240, 30));
 
         mb_tb.setModel(new javax.swing.table.DefaultTableModel(
@@ -222,32 +198,14 @@ private DefaultTableModel tabmode;
                 "ID", "Merek", "Tipe", "Tahun", "No. Polisi", "Harga ", "Status"
             }
         ));
-        mb_tb.setFillsViewportHeight(true);
-        mb_tb.getTableHeader().setReorderingAllowed(false);
         mb_tb.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mb_tbMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(mb_tb);
-        if (mb_tb.getColumnModel().getColumnCount() > 0) {
-            mb_tb.getColumnModel().getColumn(0).setResizable(false);
-            mb_tb.getColumnModel().getColumn(0).setHeaderValue("ID");
-            mb_tb.getColumnModel().getColumn(1).setResizable(false);
-            mb_tb.getColumnModel().getColumn(1).setHeaderValue("Merek");
-            mb_tb.getColumnModel().getColumn(2).setResizable(false);
-            mb_tb.getColumnModel().getColumn(2).setHeaderValue("Tipe");
-            mb_tb.getColumnModel().getColumn(3).setResizable(false);
-            mb_tb.getColumnModel().getColumn(3).setHeaderValue("Tahun");
-            mb_tb.getColumnModel().getColumn(4).setResizable(false);
-            mb_tb.getColumnModel().getColumn(4).setHeaderValue("No. Polisi");
-            mb_tb.getColumnModel().getColumn(5).setResizable(false);
-            mb_tb.getColumnModel().getColumn(5).setHeaderValue("Harga ");
-            mb_tb.getColumnModel().getColumn(6).setResizable(false);
-            mb_tb.getColumnModel().getColumn(6).setHeaderValue("Status");
-        }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 510, 930, 210));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, 890, 230));
 
         goToHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -282,17 +240,12 @@ private DefaultTableModel tabmode;
                 clickSearchMouseClicked(evt);
             }
         });
-        clickSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                clickSearchKeyTyped(evt);
-            }
-        });
-        getContentPane().add(clickSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 360, 163, 60));
+        getContentPane().add(clickSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 360, 163, 60));
 
         BoxKetersediaan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ada", "Tidak ada" }));
         getContentPane().add(BoxKetersediaan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 300, 120, 30));
 
-        boxThnProduksi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2009", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021" }));
+        boxThnProduksi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2009", "2012", "2015", "2019", "2020" }));
         boxThnProduksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxThnProduksiActionPerformed(evt);
@@ -308,15 +261,7 @@ private DefaultTableModel tabmode;
         jLabel2.setText("Ketersediaan");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 300, -1, 30));
 
-        jButton1.setText("Refresh Data");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 480, 150, 30));
-
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar_menu/menu_crud.png"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_crud.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 1360, -1));
 
         pack();
@@ -349,7 +294,7 @@ private DefaultTableModel tabmode;
                 JOptionPane.showMessageDialog(null,"Data Berhasil Disimpan");
                 kosong();
                 dataTable();
-//                LebarKolom();
+                LebarKolom();
                 noId();
                 txtFieldMerek.requestFocus();
             } catch (SQLException e){
@@ -376,7 +321,7 @@ private DefaultTableModel tabmode;
                 JOptionPane.showMessageDialog(null,"Data Berhasil Diubah");
                 kosong();
                 dataTable();
-//                LebarKolom();
+                LebarKolom();
                 noId();
                 txtFieldMerek.requestFocus();
             } catch (SQLException e){
@@ -386,14 +331,12 @@ private DefaultTableModel tabmode;
     }//GEN-LAST:event_clickUpdateMouseClicked
 
     private void clickSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickSearchMouseClicked
-        if(txtFieldMerek.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this,"Isikan data pada field Merek");
-        }else{
-            String sqlPencarian = "select * from tb_addcar where merek like '%" + txtFieldMerek.getText()+ "%'";
-            pencarian(sqlPencarian);
-
-        }
-        
+        String sqlPencarian = "select * from add_car where merek like '%" + clickSearch.getText()+ "%' or "
+        + "tipe like '%" + clickSearch.getText() + "%' or "
+        + "nopolisi '%" + clickSearch.getText() + "%'";
+        pencarian(sqlPencarian);
+        LebarKolom();
+        dataTable();
     }//GEN-LAST:event_clickSearchMouseClicked
 
     private void clickDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDeleteMouseClicked
@@ -407,7 +350,7 @@ private DefaultTableModel tabmode;
                 JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
                 kosong();
                 dataTable();
-//                LebarKolom();
+                LebarKolom();
                 txtFieldMerek.requestFocus();
             }catch (SQLException e){
                 JOptionPane.showMessageDialog(null, "Data Gagal Dihapus" + e);
@@ -442,32 +385,13 @@ private DefaultTableModel tabmode;
         txtFieldNoPolisi.setText(e);
         txtFieldHarga.setText(f);
         BoxKetersediaan.setSelectedItem(g);
-
+        
+        
     }//GEN-LAST:event_mb_tbMouseClicked
 
     private void txtFieldHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldHargaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldHargaActionPerformed
-
-    private void clickSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clickSearchKeyTyped
-
-    }//GEN-LAST:event_clickSearchKeyTyped
-
-    private void txtFieldMerekKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldMerekKeyTyped
-
-    }//GEN-LAST:event_txtFieldMerekKeyTyped
-
-    private void txtFieldTipeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldTipeKeyTyped
-
-    }//GEN-LAST:event_txtFieldTipeKeyTyped
-
-    private void txtFieldNoPolisiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldNoPolisiKeyTyped
-         
-    }//GEN-LAST:event_txtFieldNoPolisiKeyTyped
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dataTable();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -513,7 +437,6 @@ private DefaultTableModel tabmode;
     private javax.swing.JLabel clickSearch;
     private javax.swing.JLabel clickUpdate;
     private javax.swing.JLabel goToHome;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -523,16 +446,6 @@ private DefaultTableModel tabmode;
     private javax.swing.JTextField txtFieldNoPolisi;
     private javax.swing.JTextField txtFieldTipe;
     // End of variables declaration//GEN-END:variables
-
-    private static class JoptionPane {
-
-        private static int YES_NO_OPTION;
-
-        public JoptionPane() {
-        }
-    }
-    
-    
 
     
 }
