@@ -45,7 +45,7 @@ public class about_us extends javax.swing.JFrame {
         });
         getContentPane().add(labelBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 50, 30));
 
-        designForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/about_us.png"))); // NOI18N
+        designForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar_menu/about_us.png"))); // NOI18N
         getContentPane().add(designForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();

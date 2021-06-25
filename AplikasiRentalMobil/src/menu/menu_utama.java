@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package menu;
 
 import java.awt.Cursor;
 
-/**
- *
- * @author ASUS
- */
 public class menu_utama extends javax.swing.JFrame {
 
     /**
@@ -21,6 +13,7 @@ public class menu_utama extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         btnMenuInvisibility();
         pointerChanges();
+        visibility();
         jDesktopPane1.setVisible(false);
     }
 
@@ -58,10 +51,12 @@ public class menu_utama extends javax.swing.JFrame {
         goToHome = new javax.swing.JLabel();
         btnDatabase = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         menuUtamaDesign = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Menu");
+        setMaximumSize(new java.awt.Dimension(900, 2147483647));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -94,9 +89,15 @@ public class menu_utama extends javax.swing.JFrame {
         getContentPane().add(btnDatabase, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 190, 240));
 
         jDesktopPane1.setOpaque(false);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Note : Silahkan klik tombol home untuk kembali");
+        jDesktopPane1.add(jLabel1);
+        jLabel1.setBounds(400, 510, 280, 30);
+
         getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 680, 540));
 
-        menuUtamaDesign.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_utama .png"))); // NOI18N
+        menuUtamaDesign.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar_menu/menu_utama .png"))); // NOI18N
         getContentPane().add(menuUtamaDesign, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -129,6 +130,8 @@ public class menu_utama extends javax.swing.JFrame {
         btnDatabase.setEnabled(true);
         btnRent.setEnabled(true);
         
+        
+        
     }//GEN-LAST:event_goToHomeMouseClicked
 
     private void btnDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatabaseActionPerformed
@@ -138,6 +141,12 @@ public class menu_utama extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnDatabaseActionPerformed
 
+    private void visibility(){
+        form_transaksi fm = new form_transaksi();
+        if(fm.isVisible()){
+            this.dispose();
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -179,6 +188,7 @@ public class menu_utama extends javax.swing.JFrame {
     private javax.swing.JButton btnRent;
     private javax.swing.JLabel goToHome;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel menuUtamaDesign;
     // End of variables declaration//GEN-END:variables
 }

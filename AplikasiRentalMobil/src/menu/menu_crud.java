@@ -1,27 +1,138 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package menu;
 
 import java.awt.Cursor;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import koneksi.koneksi;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
-/**
- *
- * @author ASUS
- */
+
 public class menu_crud extends javax.swing.JFrame {
+    
+    
+    
+    
+public final Connection conn = new koneksi().connect();
+private DefaultTableModel tabmode;
+    
+    
+    private void aktif(){
+        txtFieldMerek.setEnabled(true);
+        txtFieldTipe.setEnabled(true);
+        txtFieldNoPolisi.setEnabled(true);
+        txtFieldHarga.setEnabled(true);       
+    }
+   
+    protected void kosong(){
+        txtFieldMerek.setText(null);
+        txtFieldTipe.setText(null);
+        txtFieldNoPolisi.setText(null);
+        txtFieldHarga.setText(null);
+    }
+    
+    public void noId(){
+        int Baris = tabmode.getRowCount();
+        for(int a = 0; a< Baris; a++){
+            String nomor = String.valueOf(a+1);
+            tabmode.setValueAt(nomor + ".",a, 0);
+        }
+    }
+    
+   
 
-    /**
-     * Creates new form menu_crud
-     */
+//    public void LebarKolom(){
+//        TableColumn kolom;
+//        mb_tb.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+//        kolom = mb_tb.getColumnModel().getColumn(0);
+//        kolom.setPreferredWidth(40);
+//        kolom = mb_tb.getColumnModel().getColumn(1);
+//        kolom.setWidth(150);
+//        kolom = mb_tb.getColumnModel().getColumn(2);
+//        kolom.setWidth(150);
+//        kolom = mb_tb.getColumnModel().getColumn(3);
+//        kolom.setWidth(150);
+//        kolom = mb_tb.getColumnModel().getColumn(4);
+//        kolom.setWidth(150);
+//        kolom = mb_tb.getColumnModel().getColumn(5);
+//        kolom.setWidth(150); 
+//        kolom = mb_tb.getColumnModel().getColumn(6);
+//        kolom.setWidth(150); 
+//      
+//    }
+    public void dataTable(){
+        Object [] Baris = {"ID","Merek","Tipe","Tahun","No.Polisi","Harga", "Status"};
+        tabmode = new DefaultTableModel (null, Baris);
+        mb_tb.setModel(tabmode);
+        String sql = "select*from tb_addcar";
+        try{
+            java.sql.Statement stat = conn.createStatement();
+            ResultSet hasil = stat.executeQuery(sql);
+            while (hasil.next()){
+                String mrk = hasil.getString("merek");
+                String tp = hasil.getString("tipe");
+                String thn = hasil.getString("tahun");
+                String nopls = hasil.getString("nopolisi");
+                String hrg = hasil.getString("harga");
+                String stts = hasil.getString("status");
+                String [] data = {"", mrk, tp, thn, nopls,hrg,stts};
+                tabmode.addRow(data);
+                noId();
+                
+            }
+            
+        }catch (Exception e){
+            
+        }
+        
+    }
+  
+    public void pencarian(String sql){
+        Object [] Baris = {"ID","Merek","Tipe","Tahun","No.Polisi","Harga", "Status"};
+        tabmode = new DefaultTableModel (null, Baris);
+        mb_tb.setModel(tabmode);
+        int brs = mb_tb.getRowCount();
+        for(int i = 0; 1<brs; i++){
+            
+    } 
+        try {
+             java.sql.Statement stat = conn.createStatement();
+             ResultSet hasil = stat.executeQuery(sql);
+             while (hasil.next()){
+                String mrk = hasil.getString("merek");
+                String tp = hasil.getString("tipe");
+                String thn = hasil.getString("tahun");
+                String nopls = hasil.getString("nopolisi");
+                String hrg = hasil.getString("harga");
+                String stts = hasil.getString("status");
+                String [] data = {"", mrk, tp, thn, nopls,hrg,stts};
+                tabmode.addRow(data);
+                noId();
+             }
+ 
+    } catch (Exception e) {
+        
+    }
+        
+    }
     public menu_crud() {
         initComponents();
         setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         hideLabel_forButtonClick();
+        dataTable();
+//        LebarKolom();
+        aktif();
+        kosong();
+        txtFieldMerek.requestFocus();
+        
     }
 
     /**
@@ -47,7 +158,7 @@ public class menu_crud extends javax.swing.JFrame {
         txtFieldTipe = new javax.swing.JTextField();
         txtFieldNoPolisi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        mb_tb = new javax.swing.JTable();
         goToHome = new javax.swing.JLabel();
         clickDelete = new javax.swing.JLabel();
         clickAdd = new javax.swing.JLabel();
@@ -57,6 +168,7 @@ public class menu_crud extends javax.swing.JFrame {
         boxThnProduksi = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,21 +177,41 @@ public class menu_crud extends javax.swing.JFrame {
 
         txtFieldHarga.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         txtFieldHarga.setBorder(null);
+        txtFieldHarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldHargaActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtFieldHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 300, 240, 30));
 
         txtFieldMerek.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         txtFieldMerek.setBorder(null);
+        txtFieldMerek.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFieldMerekKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtFieldMerek, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, 240, 30));
 
         txtFieldTipe.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         txtFieldTipe.setBorder(null);
+        txtFieldTipe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFieldTipeKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtFieldTipe, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 200, 240, 30));
 
         txtFieldNoPolisi.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         txtFieldNoPolisi.setBorder(null);
+        txtFieldNoPolisi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFieldNoPolisiKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtFieldNoPolisi, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 250, 240, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        mb_tb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -90,9 +222,32 @@ public class menu_crud extends javax.swing.JFrame {
                 "ID", "Merek", "Tipe", "Tahun", "No. Polisi", "Harga ", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        mb_tb.setFillsViewportHeight(true);
+        mb_tb.getTableHeader().setReorderingAllowed(false);
+        mb_tb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mb_tbMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(mb_tb);
+        if (mb_tb.getColumnModel().getColumnCount() > 0) {
+            mb_tb.getColumnModel().getColumn(0).setResizable(false);
+            mb_tb.getColumnModel().getColumn(0).setHeaderValue("ID");
+            mb_tb.getColumnModel().getColumn(1).setResizable(false);
+            mb_tb.getColumnModel().getColumn(1).setHeaderValue("Merek");
+            mb_tb.getColumnModel().getColumn(2).setResizable(false);
+            mb_tb.getColumnModel().getColumn(2).setHeaderValue("Tipe");
+            mb_tb.getColumnModel().getColumn(3).setResizable(false);
+            mb_tb.getColumnModel().getColumn(3).setHeaderValue("Tahun");
+            mb_tb.getColumnModel().getColumn(4).setResizable(false);
+            mb_tb.getColumnModel().getColumn(4).setHeaderValue("No. Polisi");
+            mb_tb.getColumnModel().getColumn(5).setResizable(false);
+            mb_tb.getColumnModel().getColumn(5).setHeaderValue("Harga ");
+            mb_tb.getColumnModel().getColumn(6).setResizable(false);
+            mb_tb.getColumnModel().getColumn(6).setHeaderValue("Status");
+        }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, 890, 230));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 510, 930, 210));
 
         goToHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -127,12 +282,22 @@ public class menu_crud extends javax.swing.JFrame {
                 clickSearchMouseClicked(evt);
             }
         });
-        getContentPane().add(clickSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 360, 163, 60));
+        clickSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                clickSearchKeyTyped(evt);
+            }
+        });
+        getContentPane().add(clickSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 360, 163, 60));
 
         BoxKetersediaan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ada", "Tidak ada" }));
         getContentPane().add(BoxKetersediaan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 300, 120, 30));
 
-        boxThnProduksi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2009", "2012", "2015", "2019", "2020" }));
+        boxThnProduksi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2009", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021" }));
+        boxThnProduksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxThnProduksiActionPerformed(evt);
+            }
+        });
         getContentPane().add(boxThnProduksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 260, 120, 30));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -143,26 +308,111 @@ public class menu_crud extends javax.swing.JFrame {
         jLabel2.setText("Ketersediaan");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 300, -1, 30));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/menu_crud.png"))); // NOI18N
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jButton1.setText("Refresh Data");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 480, 150, 30));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar_menu/menu_crud.png"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 1360, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void clickAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickAddMouseClicked
-        // TODO add your handling code here:
+
+       if (txtFieldMerek.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Merek Mobil Tidak Boleh Kosong");
+        } else if (txtFieldTipe.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Tipe Mobil Tidak Boleh Kosong");
+        } else if (txtFieldNoPolisi.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"No Polisi Tidak Boleh Kosong");
+        } else if (txtFieldHarga.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Harga Tidak Boleh Kosong");
+        } 
+        else {
+       
+        String sql = "insert into tb_addcar values (?,?,?,?,?,?)";
+            try{
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.setString(1, txtFieldMerek.getText());
+                stat.setString(2, txtFieldTipe.getText());
+                stat.setString(3, (String) boxThnProduksi.getSelectedItem());
+                stat.setString(4, txtFieldNoPolisi.getText());
+                stat.setString(5, txtFieldHarga.getText());
+                stat.setString(6, (String) BoxKetersediaan.getSelectedItem());
+                stat.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null,"Data Berhasil Disimpan");
+                kosong();
+                dataTable();
+//                LebarKolom();
+                noId();
+                txtFieldMerek.requestFocus();
+            } catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Data Gagal Disimpan"+ e);
+            }
+        }       
     }//GEN-LAST:event_clickAddMouseClicked
 
     private void clickUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickUpdateMouseClicked
-        // TODO add your handling code here:
+   
+   int ok = JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin" + " Ingin Mengubah Data", "Konfirmasi Dialog", JoptionPane.YES_NO_OPTION);
+        if (ok == 0){
+            String sql = "update tb_addcar set merek=?, tipe=?,tahun=?,nopolisi=?,harga=?,status=? where nopolisi ='" + txtFieldNoPolisi.getText() + "'"; 
+             try{
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.setString(1, txtFieldMerek.getText());
+                stat.setString(2, txtFieldTipe.getText());
+                stat.setString(3, (String) boxThnProduksi.getSelectedItem());
+                stat.setString(4, txtFieldNoPolisi.getText());
+                stat.setString(5, txtFieldHarga.getText());
+                stat.setString(6, (String) BoxKetersediaan.getSelectedItem());
+                stat.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null,"Data Berhasil Diubah");
+                kosong();
+                dataTable();
+//                LebarKolom();
+                noId();
+                txtFieldMerek.requestFocus();
+            } catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Data Gagal Diubah"+ e);
+            }
+        }
     }//GEN-LAST:event_clickUpdateMouseClicked
 
     private void clickSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickSearchMouseClicked
-        // TODO add your handling code here:
+        if(txtFieldMerek.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Isikan data pada field Merek");
+        }else{
+            String sqlPencarian = "select * from tb_addcar where merek like '%" + txtFieldMerek.getText()+ "%'";
+            pencarian(sqlPencarian);
+
+        }
+        
     }//GEN-LAST:event_clickSearchMouseClicked
 
     private void clickDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickDeleteMouseClicked
-        // TODO add your handling code here:
+     
+        int ok = JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin" + " Ingin Menghapus Data", "Konfirmasi Dialog", JoptionPane.YES_NO_OPTION);
+        if (ok == 0){
+            String sql = "delete from tb_addcar where nopolisi ='"+txtFieldNoPolisi.getText()+"'"; 
+            try {
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+                kosong();
+                dataTable();
+//                LebarKolom();
+                txtFieldMerek.requestFocus();
+            }catch (SQLException e){
+                JOptionPane.showMessageDialog(null, "Data Gagal Dihapus" + e);
+            }
+        }
     }//GEN-LAST:event_clickDeleteMouseClicked
 
     private void goToHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goToHomeMouseClicked
@@ -171,6 +421,53 @@ public class menu_crud extends javax.swing.JFrame {
         utama.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_goToHomeMouseClicked
+
+    private void boxThnProduksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxThnProduksiActionPerformed
+        
+    }//GEN-LAST:event_boxThnProduksiActionPerformed
+
+    private void mb_tbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mb_tbMouseClicked
+        int bar = mb_tb.getSelectedRow();
+        
+        String b = tabmode.getValueAt(bar, 1).toString();
+        String c = tabmode.getValueAt(bar, 2).toString();
+        String d = tabmode.getValueAt(bar, 3).toString();
+        String e = tabmode.getValueAt(bar, 4).toString();
+        String f = tabmode.getValueAt(bar, 5).toString();
+        String g = tabmode.getValueAt(bar, 6).toString();
+      
+        txtFieldMerek.setText(b);
+        txtFieldTipe.setText(c);
+        boxThnProduksi.setSelectedItem(d);
+        txtFieldNoPolisi.setText(e);
+        txtFieldHarga.setText(f);
+        BoxKetersediaan.setSelectedItem(g);
+
+    }//GEN-LAST:event_mb_tbMouseClicked
+
+    private void txtFieldHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldHargaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldHargaActionPerformed
+
+    private void clickSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clickSearchKeyTyped
+
+    }//GEN-LAST:event_clickSearchKeyTyped
+
+    private void txtFieldMerekKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldMerekKeyTyped
+
+    }//GEN-LAST:event_txtFieldMerekKeyTyped
+
+    private void txtFieldTipeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldTipeKeyTyped
+
+    }//GEN-LAST:event_txtFieldTipeKeyTyped
+
+    private void txtFieldNoPolisiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldNoPolisiKeyTyped
+         
+    }//GEN-LAST:event_txtFieldNoPolisiKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dataTable();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,13 +513,26 @@ public class menu_crud extends javax.swing.JFrame {
     private javax.swing.JLabel clickSearch;
     private javax.swing.JLabel clickUpdate;
     private javax.swing.JLabel goToHome;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable mb_tb;
     private javax.swing.JTextField txtFieldHarga;
     private javax.swing.JTextField txtFieldMerek;
     private javax.swing.JTextField txtFieldNoPolisi;
     private javax.swing.JTextField txtFieldTipe;
     // End of variables declaration//GEN-END:variables
+
+    private static class JoptionPane {
+
+        private static int YES_NO_OPTION;
+
+        public JoptionPane() {
+        }
+    }
+    
+    
+
+    
 }
